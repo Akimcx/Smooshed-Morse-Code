@@ -33,8 +33,13 @@ class SmooshedMorseCode1{
         while( (line = br.readLine()) != null  ){
             String pattern = encode(line);
             bonus2(pattern, line);
+            
             if(line.length() == 21){
                 bonus3(pattern, line);
+            }
+            
+            if(line.length() == 13){
+                bonus4(pattern, line);
             }
         }
     }
@@ -53,6 +58,16 @@ class SmooshedMorseCode1{
         
         if(isPerfectlyBalanced(pattern)){
             System.out.println(line + " is a 21-letter word that's perfectly balanced");
+        }
+    }
+
+    //Find the only 13-letter word that encodes to a palindrome
+    private static void bonus4(String pattern, String line){
+        
+        StringBuilder builder = new StringBuilder(pattern);
+        
+        if(builder.reverse().toString().equals(pattern)) {
+            System.out.println(line + " is a 13-letter word that encode to a palindrome.");
         }
     }
 
