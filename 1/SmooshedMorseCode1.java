@@ -13,12 +13,31 @@ class SmooshedMorseCode1{
         System.out.print("Message to be encoded: "); 
         String plainTextMessage = keyb.nextLine().trim(); 
         
-        keyb.close();
        
         System.out.println("Encryption process...");
         String encodedMessage = encode(plainTextMessage);
 
-        System.out.println("Encryption done, here's the result \n" + encodedMessage);
+        System.out.println("Encryption done, here's the result: " + encodedMessage);
+        
+        File wordList = new File("./enable1.txt");
+        BufferedReader br = new BufferedReader(new FileReader(wordList));
+       
+        bonus2(br);
+        keyb.close();
+    }
+    
+    //Find the only word that has 15 dashes in a row
+    private static void bonus2(BufferedReader br) throws Exception{
+
+        String regex = ".*-{15}.*";
+        String line;
+        while( (line = br.readLine()) != null  ){
+            String pattern = encode(line);
+            if(pattern.matches(regex)){
+                System.out.println("Only Word with 15 dashes in a row: " + line);
+                System.out.println();
+            }
+        }
     }
 
     private static String encode(String plainTextMessage){
