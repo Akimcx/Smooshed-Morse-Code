@@ -19,24 +19,40 @@ class SmooshedMorseCode1{
 
         System.out.println("Encryption done, here's the result: " + encodedMessage);
         
-        File wordList = new File("./enable1.txt");
-        BufferedReader br = new BufferedReader(new FileReader(wordList));
        
-        bonus2(br);
+        optionalBonusChallenges();
         keyb.close();
     }
-    
-    //Find the only word that has 15 dashes in a row
-    private static void bonus2(BufferedReader br) throws Exception{
 
-        String regex = ".*-{15}.*";
+    private static void optionalBonusChallenges() throws Exception{
+        
+        File wordList = new File("./enable1.txt");
+        BufferedReader br = new BufferedReader(new FileReader(wordList));
+        
         String line;
         while( (line = br.readLine()) != null  ){
             String pattern = encode(line);
-            if(pattern.matches(regex)){
-                System.out.println("Only Word with 15 dashes in a row: " + line);
-                System.out.println();
+            bonus2(pattern, line);
+            if(line.length() == 21){
+                bonus3(pattern, line);
             }
+        }
+    }
+    
+    //Find the only word that has 15 dashes in a row
+    private static void bonus2(String pattern, String line) {
+
+        String regex = ".*-{15}.*";
+        if(pattern.matches(regex)){
+            System.out.println("Only Word with 15 dashes in a row: " + line);
+        }
+    }
+
+    //Find the other 21-letter word that's perfectly balanced
+    private static void bonus3(String pattern, String line){
+        
+        if(isPerfectlyBalanced(pattern)){
+            System.out.println(line + " is a 21-letter word that's perfectly balanced");
         }
     }
 
