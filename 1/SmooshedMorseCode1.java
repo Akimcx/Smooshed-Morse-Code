@@ -1,15 +1,21 @@
 import java.util.Scanner;
+import java.util.HashMap;
 import java.io.*;
 
 class SmooshedMorseCode1{
 
-    static Scanner keyb = new Scanner(System.in);
-    static String [] alphabetInMorse = { ".-", "-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."
-};        
-    static String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    private static String [] alphabetInMorse = { 
+        ".-", "-...","-.-.","-..",".","..-.","--.","....","..",
+        ".---","-.-",".-..","--","-.","---",".--.","--.-",".-.",
+        "...","-","..-","...-",".--","-..-","-.--","--.."
+    };
+
+    private static String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
     public static void main(String args[]) throws Exception{
-
+        
+        Scanner keyb = new Scanner(System.in);
+        
         System.out.print("Message to be encoded: "); 
         String plainTextMessage = keyb.nextLine().trim(); 
        
@@ -18,7 +24,7 @@ class SmooshedMorseCode1{
         System.out.println("Encryption done, here's the result: " + encodedMessage);
         
         optionalBonusChallenges();
-
+        
         keyb.close();
     }
 
@@ -29,7 +35,12 @@ class SmooshedMorseCode1{
         
         String line;
         while( (line = br.readLine()) != null  ){
+            
             String pattern = encode(line);
+            
+            bonus1(pattern); 
+            
+            
             bonus2(pattern, line);
             
             if(line.length() == 21){
@@ -41,7 +52,23 @@ class SmooshedMorseCode1{
             }
         }
     }
+
+    //Find the only sequence that's the code for 13 different words
     
+    static HashMap<String, Integer> map = new HashMap<>();
+    final static int MAX = 13;
+    private static void bonus1(String pattern){
+        
+        if(map.containsKey(pattern)){
+           map.put(pattern, map.get(pattern) + 1);
+        }else{
+            map.put(pattern, 1);
+        }
+        
+        if(map.get(pattern) >= MAX) 
+            System.out.println("The only sequence that's the code for 13 different wors is: " + pattern);
+    }
+
     //Find the only word that has 15 dashes in a row
     private static void bonus2(String pattern, String line) {
 
@@ -81,14 +108,14 @@ class SmooshedMorseCode1{
 
     private static boolean isPerfectlyBalanced(String pattern){
        int dotCount = 0, dashCount = 0;
-
+        
        for(int i = 0; i < pattern.length(); i++){
-           if(pattern.charAt(i) == '.'){
-               dotCount++;
-           }else{
+            if(pattern.charAt(i) == '.'){
+                dotCount++;
+            }else{
                dashCount++;
-           }
-       } 
+            }
+        }     
        return dashCount == dotCount;
     }
 }
