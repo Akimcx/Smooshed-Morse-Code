@@ -12,15 +12,13 @@ class SmooshedMorseCode1{
 
         System.out.print("Message to be encoded: "); 
         String plainTextMessage = keyb.nextLine().trim(); 
-        
        
         System.out.println("Encryption process...");
         String encodedMessage = encode(plainTextMessage);
-
         System.out.println("Encryption done, here's the result: " + encodedMessage);
         
-       
         optionalBonusChallenges();
+
         keyb.close();
     }
 
